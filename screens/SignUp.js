@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, Image, StatusBar, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
+import { TouchableHighlight, Image, StatusBar, TextInput, Button, Text, KeyboardAvoidingView } from 'react-native';
 import loginApi from '../services/loginApi';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import loginStyles from '../style/loginStyles';
+
+import TermsServices from '../secondaryScreens/TermsOfService'
 
 export default class SignUp extends Component {
   static navigationOptions = {
@@ -19,14 +21,21 @@ export default class SignUp extends Component {
     }).isRequired,
   };
 
-  state = {
-    name: 'Matheus Marafelli',
-    username: 'MMarafelli',
-    email: 'mmarafelli@outlook.com',
-    password: '123456',
-    error: '',
-    success: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: 'Matheus Marafelli',
+      username: 'MMarafelli',
+      email: 'mmarafelli@outlook.com',
+      password: '123456',
+      error: '',
+      success: '',
+      showTerms: false,
+    };
+
+    this.handleCloseTermsPress = this.handleCloseTermsPress.bind(this)
+  }
 
   handleNameChange = (name) => {
     this.setState({ name });
@@ -47,6 +56,10 @@ export default class SignUp extends Component {
   handleBackToLoginPress = () => {
     this.props.navigation.goBack();
   };
+
+  handleCloseTermsPress = () => {
+    this.setState({ ...this.state, showTerms: false });
+  }
 
   handleSignUpPress = async () => {
     if (this.state.email.length === 0 || this.state.password.length === 0) {
@@ -145,6 +158,10 @@ export default class SignUp extends Component {
         <TouchableHighlight style={loginStyles.signInLink} onPress={this.handleBackToLoginPress}>
           <Text style={loginStyles.signInLinkText}>Voltar ao login</Text>
         </TouchableHighlight>
+        <TouchableHighlight style={loginStyles.signInLink} onPress={() => this.setState({ ...this.state, showTerms: true })}>
+          <Text style={loginStyles.signUpLinkText}>Termos de serviço</Text>
+        </TouchableHighlight >
+        <TermsServices showTerms={this.state.showTerms} handleCloseTermsPress={this.handleCloseTermsPress}></TermsServices>
       </KeyboardAvoidingView >
 
     );

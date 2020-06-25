@@ -18,8 +18,12 @@ LinksScreen.navigationOptions = {
   title: 'Links',
   headerStyle: {
     backgroundColor: 'black',
-    height: 40,
+    height: 30,
   },
+  headerTitleStyle: {
+    marginBottom: 25,
+  },
+  headerTintColor: '#fff',
 };
 
 const styles = StyleSheet.create({

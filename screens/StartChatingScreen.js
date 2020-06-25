@@ -18,8 +18,12 @@ StartChatingScreen.navigationOptions = {
   title: '',
   headerStyle: {
     backgroundColor: 'black',
-    height: 40,
+    height: 30,
   },
+  headerTitleStyle: {
+    marginBottom: 25,
+  },
+  headerTintColor: '#fff',
 };
 
 const styles = StyleSheet.create({

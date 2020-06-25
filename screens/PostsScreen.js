@@ -66,8 +66,8 @@ export default function PostsScreen(props) {
   })
 
   async function newMessagesSetter(data) {
-    console.log('newMessagesSetter')
-    console.log(data)
+    // console.log('newMessagesSetter')
+    // console.log(data)
     let contactArray = []
     await data.contacts.map((item) => {
       contactArray.push({
@@ -231,7 +231,10 @@ PostsScreen.navigationOptions = {
   title: 'Mensagens',
   headerStyle: {
     backgroundColor: 'black',
-    height: 40,
+    height: 30,
+  },
+  headerTitleStyle: {
+    marginBottom: 25,
   },
   headerTintColor: '#fff',
 };

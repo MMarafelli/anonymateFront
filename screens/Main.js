@@ -116,7 +116,10 @@ export default class Main extends Component {
       console.log(error)
     }
 
-    this.setState({ ...this.state, location, geocode });
+    if (this._isMounted) {
+      this.setState({ ...this.state, location, geocode });
+    }
+
     // console.log(location)
     // console.log(geocode)
     // console.log(location.coords.latitude)
@@ -140,7 +143,9 @@ export default class Main extends Component {
     this.state.languagesArray = LanguagesArray
     this.state.interestsArray = InterestsArray
     // console.log(this._isMounted)
-    this._getLocationAsync();
+    if (this._isMounted) {
+      this._getLocationAsync();
+    }
     this._connectSocketIo();
 
   }

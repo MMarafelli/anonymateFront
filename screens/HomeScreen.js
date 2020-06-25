@@ -32,7 +32,7 @@ export default function HomeScreen(props) {
     region = geocode.region
     country = geocode.country
   }
-  if (geocode == null ||neighborhood == undefined || city == undefined || region == undefined || country == undefined) {
+  if (geocode == null || neighborhood == undefined || city == undefined || region == undefined || country == undefined) {
     locationText = "Carregando localização"
   } else {
     locationText = neighborhood + ", " + city + ", " + region + ", " + country
@@ -76,20 +76,20 @@ export default function HomeScreen(props) {
                     size={26}
                     style={{ marginBottom: -3 }}
                     color='#4db6ac'
-                  /> Location: {locationText}
+                  /> {locationText}
                 </Text>
               </View>
 
               <Text style={generalStyle.name}>
                 Change this text and your app will automatically reload.
-          </Text>
+              </Text>
             </View>
 
             <View style={generalStyle.helpContainer}>
               <TouchableOpacity onPress={handleHelpPress} style={generalStyle.helpLink}>
                 <Text style={generalStyle.helpLinkText}>
                   Help, it didn’t automatically reload!
-            </Text>
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -103,7 +103,10 @@ HomeScreen.navigationOptions = {
   title: 'Home',
   headerStyle: {
     backgroundColor: 'black',
-    height: 40,
+    height: 30,
+  },
+  headerTitleStyle: {
+    marginBottom: 25,
   },
   headerTintColor: '#fff',
 };

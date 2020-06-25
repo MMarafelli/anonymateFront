@@ -8,6 +8,8 @@ import { YellowBox } from 'react-native'
 import LanguagesList from "../components/LanguagesList"
 import InterestsList from "../components/InterestsList"
 
+import Warning from "../components/Warning"
+
 export default function SettingsScreen(props) {
   YellowBox.ignoreWarnings([
     'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.', // TODO: Remove when fixed
@@ -25,7 +27,8 @@ export default function SettingsScreen(props) {
     languageArray: [],
     languageArrayAux: [],
     languageSponkenList: [],
-    loadingInterests: true
+    loadingInterests: true,
+    erroShow: false
   })
 
   const [erro, setErro] = useState()
@@ -79,18 +82,24 @@ export default function SettingsScreen(props) {
           interestsList: response.data.interests,
           languageSponkenList: response.data.languageSponkenList,
           loadingInterests: false,
+          erroShow: false
         })
         // setLoadingInterests(false)
       }
 
     } catch (_err) {
-      // console.log(_err)
+      console.log(_err)
       if (_err.response.status == 400) {
         console.log(_err.response.data.error);
-        setErro('Houve um problema com a atualização de interesses! ' + _err)
+        setInterestsList({
+          ...interestsState,
+          loadingInterests: false,
+          erroShow: true,
+        })
+        setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       } else {
         console.log('Houve um problema com a atualização de interesses!');
-        setErro('Houve um problema com a atualização de interesses! ' + _err)
+        setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       }
     }
   }
@@ -287,6 +296,8 @@ export default function SettingsScreen(props) {
         showsVerticalScrollIndicator={false}
       >
 
+        {interestsState.erroShow && <Warning erro={erro} />}
+
         <View style={styles.containerCenter}>
           <Text style={styles.textStyle}>Quais são seus interesses?</Text>
         </View>
@@ -368,7 +379,10 @@ SettingsScreen.navigationOptions = {
   title: 'Interesses',
   headerStyle: {
     backgroundColor: 'black',
-    height: 40,
+    height: 30,
+  },
+  headerTitleStyle: {
+    marginBottom: 25,
   },
   headerTintColor: '#fff',
 };
