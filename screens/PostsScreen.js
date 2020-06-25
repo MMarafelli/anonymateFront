@@ -6,14 +6,13 @@ import {
 import ChatTab from '../components/ChatTab'
 import LoadingScreen from '../screens/Loader'
 
-import socket from "../components/socketConfig";
+import socket from "../services/SocketConfig";
 
 console.disableYellowBox = true;
 
 export default function PostsScreen(props) {
-  console.log('PostsScreen')
-  // console.log(props.screenProps)
-
+  // console.log('PostsScreen')
+  // console.log(props.navigation.state.key)
   let isSubscribed = false;
 
   const [userRequest, setUserRequest] = useState({
@@ -41,6 +40,7 @@ export default function PostsScreen(props) {
     })
 
     // sort array na tela pela hora da mensagem
+    // console.log(refreshLastMessageArray)
     if (refreshLastMessageArray.length > 1) {
       refreshLastMessageArray.sort(function (a, b) {
         if (a.messages == undefined || b.messages == undefined) {
@@ -48,9 +48,11 @@ export default function PostsScreen(props) {
         } else {
           let aDate, bDate
           a.messages.map((item) => {
+            // console.log('a date ' + item)
             aDate = item.messageAddAt
           })
           b.messages.map((item) => {
+            // console.log('b date ' + item)
             bDate = item.messageAddAt
           })
           return new Date(bDate) - new Date(aDate);
@@ -58,13 +60,14 @@ export default function PostsScreen(props) {
       });
     }
     setUserRequest({
+      ...userRequest,
       contactsList: refreshLastMessageArray
     })
   })
 
   async function newMessagesSetter(data) {
     console.log('newMessagesSetter')
-    // console.log(data)
+    console.log(data)
     let contactArray = []
     await data.contacts.map((item) => {
       contactArray.push({
@@ -76,27 +79,27 @@ export default function PostsScreen(props) {
       })
     })
 
-    console.log("contactArray")
-    console.log(contactArray)
+    // console.log("contactArray")
+    // console.log(contactArray)
     // adiciona data de adição do contato no array que vai gerar lista de contatos
     await contactArray.forEach(obj => {
       const a1Ref = obj.contactId
-      console.log(a1Ref)
+      // console.log(a1Ref)
       const arr2Obj = data.user.contacts.find(tmp => tmp.contactId === a1Ref)
       if (arr2Obj) obj.addAt = arr2Obj.addAt
     });
-    console.log("//////////////////")
-    //console.log(contactArray)
+    // console.log("//////////////////")
+    // console.log(contactArray)
     // adiciona ultima mensagem trocada do contato no array que vai gerar lista de contatos
     await contactArray.forEach(obj => {
-      //console.log("contact array")
+      // console.log("contact array")
       const a1Ref = obj.contactId
       data.chating.map((item) => {
-        //console.log('item')
-        //console.log(item)
-        //console.log(a1Ref)
-        //console.log(tmp.member1)
-        //console.log(tmp.member2)
+        // console.log('item')
+        // console.log(item)
+        // console.log(a1Ref)
+        // console.log(tmp.member1)
+        // console.log(tmp.member2)
         const arr2Obj = item.members.find(tmp =>
           (tmp.member1 === a1Ref || tmp.member2 === a1Ref)
         )
@@ -173,7 +176,7 @@ export default function PostsScreen(props) {
 
   async function getContactsList() {
     props.screenProps.map((item) => {
-      console.log('getContactsList')
+      // console.log('getContactsList')
       //console.log(item.user.userId)
       socket.emit('online', (item.user.userId))
       socket.on('online', async (data) => {
@@ -196,7 +199,8 @@ export default function PostsScreen(props) {
   const renderItem = ({ item }) => {
     // console.log('renderItem')
     // console.log(item)
-    return <ChatTab {...item} userId={userRequest.userId} />;
+    // console.log(userRequest.userId)
+    return <ChatTab {...item} userId={userRequest.userId} navigation={props.navigation} />;
   };
 
   // console.log('userRequest')

@@ -5,7 +5,7 @@ import LoadingScreen from '../screens/Loader'
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
-import socket from "../components/socketConfig";
+import socket from "../services/SocketConfig";
 
 export default function LogoutScreen(props) {
 

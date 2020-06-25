@@ -9,14 +9,15 @@ import { Ionicons } from '@expo/vector-icons'
 import chatTabStyle from '../style/chatTabStyle'
 import { NavigationActions } from 'react-navigation'
 
-async function onPress (props) {
-  console.log('pressionou')
-  // console.log(props)
+async function onPress(props) {
+  // console.log('pressionou')
+  // console.log(props.navigation.state.key)
   try {
     global.stackNavigator.dispatch(
       NavigationActions.navigate({
         routeName: 'ChatScreen',
         params: {
+          goBackKey: props.navigation.state.key,
           userId: props.userId,
           conversationId: props.conversationId,
           friend: {
@@ -72,7 +73,7 @@ function getDateHour(props) {
     if (lastMessageDDMMYY == todayDDMMYY) {
       return messageTime
     } else if (lastMessageDDMMYY == yesterdayDDMMYY) {
-      return 'yesterday'
+      return 'ontem'
     } else {
       return lastMessageDDMMYY
     }
@@ -96,7 +97,7 @@ function getLastMessage(props) {
 
 function display(props) {
   console.log('chattab props')
-  console.log(props)
+  console.log(props.Object)
 }
 
 const ChatTab = props => (

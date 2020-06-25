@@ -9,24 +9,39 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-let USER = '';
-
 class FlatListComponent extends React.Component {
 
+  // _retrieveData = async () => {
+  //   try {
+  //     USER = await AsyncStorage.getItem('userId');
+  //     if (USER !== null) {
+  //       // We have data!!
+  //       console.log(USER);
+  //     }
+  //   } catch (USER) {
+  //     // Error retrieving data
+  //   }
+  // };
+
   componentDidMount() {
-    USER = AsyncStorage.getItem('userId');
+    // console.log('componentDidMount')
+    // this._retrieveData()
   }
 
   render() {
-    // let { item } = this.props;
-    console.log('FlatListComponent')
+    // console.log('FlatListComponent')
     // console.log(this.props.userId)
     // console.log(this.props.user.senderId)
+    // console.log(this.props.conversationLength)
+    // console.log(this.props.itemId)
+
     return (
-      
+
       <View style={[{
         display: 'flex',
         alignItems: this.props.userId === this.props.user.senderId ? "flex-end" : "flex-start",
+        marginTop: (this.props.itemId + 1) == 1 ? 5 : 0,
+        marginBottom: (this.props.itemId + 1) == this.props.conversationLength ? 5 : 0,
       }]}>
         <View style={[
           styles.listItemContainer,
@@ -41,7 +56,6 @@ class FlatListComponent extends React.Component {
             {this.props.text}
           </Text>
         </View>
-        <View style={styles.marginBottom} />
       </View >
     )
   }
@@ -55,10 +69,6 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 14,
   },
-  marginBottom: {
-    height: 5,
-    backgroundColor: "transparent"
-  },
   listItemContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -68,6 +78,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 10,
+    marginTop: 5,
+    marginBottom: 5,
     marginStart: 10,
     marginEnd: 10,
     elevation: 1

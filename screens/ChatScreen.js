@@ -5,18 +5,20 @@ import {
   Text,
   AsyncStorage,
   Platform,
-  Keyboard,
   Image,
   FlatList,
   KeyboardAvoidingView,
+  SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 
-import socket from "../components/socketConfig";
+import socket from "../services/SocketConfig";
 
 import LoadingScreen from '../screens/Loader'
 import FlatListComponent from '../components/FlatListComponent';
 import InputComponent from '../components/InputComponent';
+
+import BackButtonHandler from '../components/BackButtonHandler';
 
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
@@ -52,36 +54,25 @@ export default class ChatScreen extends React.Component {
   }
 
   componentWillMount() {
+    // console.log('componentWillMount')
     //if (Platform.OS === 'android') {
     //  this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     //  this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     //}
   }
 
-  _keyboardDidShow = (e) => {
-    //console.log('_keyboardDidShow')
-    //let keyboardHeight = e.endCoordinates.height;
-    //console.log(keyboardHeight)
-    //this.setState({
-    //  minInputToolbarHeight: keyboardHeight + 5,
-    //});
-  };
-
-  _keyboardDidHide = () => {
-    //this.setState({
-    //  minInputToolbarHeight: 45,
-    //});
-  };
-
   componentWillUnmount() {
-    // this._isMounted = false;
+    // console.log('componentWillUnmount')
+    this._isMounted = false;
     // if (Platform.OS === 'android') {
     //   this.keyboardDidShowListener.remove();
     //   this.keyboardDidHideListener.remove();
     // }
+    BackButtonHandler.unmount();
   }
 
   componentDidMount() {
+    // console.log('componentDidMount')
     this._isMounted = true;
     //Keyboard.addListener(
     //  isAndroid ? "keyboardDidShow" : "keyboardWillShow",
@@ -93,6 +84,7 @@ export default class ChatScreen extends React.Component {
     //  () => this.setState({ viewPadding: viewPadding })
     //);
 
+    BackButtonHandler.mount(true, this.props.navigation);
     socket.emit('openChat', this.state.friend.contactId, this.state.conversationId)
 
   }
@@ -201,42 +193,51 @@ export default class ChatScreen extends React.Component {
   }
 
   render() {
+    // console.log('aqui this.state.userId ' + this.state.userId)
     return (
-      <View style={[styles.container]}>
-        <KeyboardAvoidingView style={[styles.container]}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.headerArrow}>
-              <Ionicons name={'md-arrow-back'} size={20} />
-            </Text>
-            <Image
-              style={styles.pic}
-              source={require('../assets/images/default.jpeg')}
-            />
-            <Text style={styles.headerFriendName}>{this.state.friend.displayname}</Text>
-          </View>
-          <FlatList
-            style={styles.list}
-            data={this.state.tasks}
-            ref={ref => this.flatList = ref}
-            onContentSizeChange={() => this.flatList.scrollToEnd({ animated: true })}
-            onLayout={() => this.flatList.scrollToEnd({ animated: true })}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) =>
-              <FlatListComponent
-                {...item}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={{ flex: 1 }}
+      >
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={[styles.container]}>
+            <View style={styles.headerContainer}>
+              <Text
+                style={styles.headerArrow}
+                onPress={() => (BackButtonHandler.onBackButtonPressAndroid(true, this.props.navigation))}
+              >
+                <Ionicons name={'md-arrow-back'} size={20} />
+              </Text>
+              <Image
+                style={styles.pic}
+                source={require('../assets/images/default.jpeg')}
               />
-            }
-            keyExtractor={(item, index) => index.toString()}
-          />
-          <InputComponent
-            changeTextHandler={this.changeTextHandler}
-            onSubmitEditing={() => this.submithandler()}
-            value={this.state.text}
-            sendMessage={this.sendMessage}
-          />
-        </KeyboardAvoidingView>
-      </View>
+              <Text style={styles.headerFriendName}>{this.state.friend.displayname}</Text>
+            </View>
+            <FlatList
+              style={styles.list}
+              data={this.state.tasks}
+              ref={ref => this.flatList = ref}
+              onContentSizeChange={() => this.flatList.scrollToEnd({ animated: true })}
+              onLayout={() => this.flatList.scrollToEnd({ animated: true })}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) =>
+                <FlatListComponent
+                  {...item} itemId={index} userId={this.state.userId} conversationLength={this.state.tasks.length}
+                />
+              }
+              keyExtractor={(item, index) => index.toString()}
+            />
+            <InputComponent
+              changeTextHandler={this.changeTextHandler}
+              onSubmitEditing={() => this.submithandler()}
+              value={this.state.text}
+              sendMessage={this.sendMessage}
+            />
+          </View>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -249,6 +250,7 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingTop: 0,
     width: '100%',
+    justifyContent: "flex-end",
   },
   buttonStyle: {
     color: "red",

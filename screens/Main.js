@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, SafeAreaView } from 'react-native';
 import AppNavigator from '../navigation/AppNavigator';
-
-import { StackActions, NavigationActions } from 'react-navigation';
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-import socket from "../components/socketConfig";
+import socket from "../services/SocketConfig";
+import LanguagesArray from '../constants/LanguagesArray';
+import InterestsArray from '../constants/InterestsArray';
+
+const API_KEY = 'AIzaSyBcbNV4QZfiOV2LPTkL0v4an-rLdFe48eM';
 
 export default class Main extends Component {
   static navigationOptions = {
     header: null,
+    footer: null,
   };
 
   _isMounted = false;
@@ -24,11 +27,13 @@ export default class Main extends Component {
     user: this.props.navigation.state.params.user,
     socket: '',
     currentUserChat: '',
+    languagesArray: '',
+    interestsArray: '',
   };
 
 
   render() {
-    console.log('render')
+    // console.log('render')
     let text = 'Waiting..';
     if (this.state.errorMessage) {
       text = this.state.errorMessage;
@@ -39,15 +44,20 @@ export default class Main extends Component {
     return (
       <View style={stylesHere.container}>
         {Platform.OS === 'ios' && <StatusBar hidden barStyle="default" />}
-        <AppNavigator style={stylesHere.appNavigator}
-          screenProps={[{
-            user: this.state.user,
-            geocode: this.state.geocode,
-            location: this.state.location,
-            text: text,
-            socket: this.state.socket,
-          }]} />
-      </View>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}
+          forceInset={{ top: 'always', bottom: 'always' }}>
+          <AppNavigator style={stylesHere.appNavigator}
+            screenProps={[{
+              user: this.state.user,
+              geocode: this.state.geocode,
+              location: this.state.location,
+              text: text,
+              socket: this.state.socket,
+              languagesArray: this.state.languagesArray,
+              interestsArray: this.state.interestsArray,
+            }]} />
+        </SafeAreaView>
+      </View >
     )
 
   }
@@ -57,11 +67,11 @@ export default class Main extends Component {
   };
 
   _handleFinishLoading = () => {
-    console.log('_handleFinishLoading')
+    // console.log('_handleFinishLoading')
   };
 
   _getLocationAsync = async () => {
-    //   console.log('async')
+    // console.log('async')
     let providerStatus = await Location.getProviderStatusAsync();
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
@@ -79,32 +89,59 @@ export default class Main extends Component {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    let geocode = await Location.reverseGeocodeAsync(location.coords);
-    this.setState({ location });
-    this.setState({ geocode });
+    // let geocode = await Location.reverseGeocodeAsync(location.coords);
+    let geocode;
+
+    try {
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + location.coords.latitude + ',' + location.coords.longitude + '&key=' + API_KEY)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // console.log('ADDRESS GEOCODE is BACK!! => ' + responseJson.results[0]);
+          // console.log(responseJson.results[0].address_components)
+          // console.log(responseJson.results[0].address_components[2].long_name)
+          // console.log(responseJson.results[0].address_components[3].long_name)
+          // console.log(responseJson.results[0].address_components[4].long_name)
+          // console.log(responseJson.results[0].address_components[5].short_name)
+          geocode = {
+            neighborhood: responseJson.results[0].address_components[2].long_name,
+            city: responseJson.results[0].address_components[3].long_name,
+            region: responseJson.results[0].address_components[4].long_name,
+            country: responseJson.results[0].address_components[5].short_name,
+          }
+          return true
+        })
+      // console.log(response)
+    } catch (error) {
+      console.log("adress get error")
+      console.log(error)
+    }
+
+    this.setState({ ...this.state, location, geocode });
+    // console.log(location)
+    // console.log(geocode)
+    // console.log(location.coords.latitude)
+    // console.log(location.coords.longitude)
   };
 
   componentDidUpdate(prevProps, props) {
-    console.log('componentDidUpdate')
+    // console.log('componentDidUpdate')
     if (this.props.socket !== prevProps.socket) {
     }
   }
 
-  componentWillMount() {
-    console.log('mount')
-    this._getLocationAsync();
-    this._connectSocketIo();
-  }
-
   componentWillUnmount() {
-    console.log('componentWillUnmount')
+    // console.log('componentWillUnmount')
     this._isMounted = false;
   }
 
   componentDidMount() {
     this._isMounted = true;
-    console.log('componentDidMount')
-    console.log(this._isMounted)
+    // console.log('componentDidMount')
+    this.state.languagesArray = LanguagesArray
+    this.state.interestsArray = InterestsArray
+    // console.log(this._isMounted)
+    this._getLocationAsync();
+    this._connectSocketIo();
 
   }
 
@@ -112,7 +149,7 @@ export default class Main extends Component {
     socket.connect()
     // socket.emit('online', (this.props.navigation.state.params.user.userId))
     // socket.on('connect', () => {
-    //   console.log('connected to socket server');
+    // console.log('connected to socket server');
     //   if (this._isMounted) {
     //     this.setState({ socket });
     //     // currentUserChat = socket.id
@@ -122,8 +159,8 @@ export default class Main extends Component {
     //   }
     // });
     socket.on('disconnect', (reason) => {
-      console.log("Socket Closed. ");
-      console.log(reason)
+      /// console.log("Socket Closed. ");
+      /// console.log(reason)
       if (reason != '') {
         // // console.log('desconectou')
         // socket.disconnect()
@@ -135,24 +172,24 @@ export default class Main extends Component {
         this._goToSigin()
       }
     })
-    console.log(socket.connected)
-    console.log(socket.disconnected)
+    // console.log(socket.connected)
+    // console.log(socket.disconnected)
   }
 
   _goToSigin = async () => {
-    console.log('_goToSigin')
-    const logoutAction = StackActions.reset({
-      index: 0,
-      key: null,
-      actions: [
-        NavigationActions.navigate({ routeName: 'SignIn', })
-      ],
-    });
-
-    global.stackNavigator.dispatch(
-      logoutAction
-    );
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    // console.log('_goToSigin')
+    //    const logoutAction = StackActions.reset({
+    //      index: 0,
+    //      key: null,
+    //      actions: [
+    //        NavigationActions.navigate({ routeName: 'SignIn', })
+    //      ],
+    //    });
+    //
+    //    global.stackNavigator.dispatch(
+    //      logoutAction
+    //    );
+    // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
   }
 }
 
@@ -162,6 +199,7 @@ const stylesHere = StyleSheet.create({
     backgroundColor: '#000000',
   },
   appNavigator: {
+    flex: 1,
     backgroundColor: 'black',
   }
 });

@@ -4,7 +4,7 @@ import { AsyncStorage } from 'react-native';
 const loginApi = axios.create({
   //http://192.168.0.10:3000/api
   //http://anonymate.com.br/api
-  baseURL: 'http://anonymate.com.br/api',
+  baseURL: 'http://192.168.0.10:3000/api',
   headers: {
     authorization: ''
   },

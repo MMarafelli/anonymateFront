@@ -4,10 +4,20 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { YellowBox } from 'react-native'
 
 import ScreenRouter from './navigation/ScreenRouter';
 
 export default function App(props) {
+
+  YellowBox.ignoreWarnings([
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.', // TODO: Remove when fixed
+  ])
+
+  console.ignoredYellowBox = [
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.', // TODO: Remove when fixed
+  ];
+
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {

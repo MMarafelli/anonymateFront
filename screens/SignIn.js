@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, Image, StatusBar, TextInput, View, Text } from 'react-native';
+import { TouchableHighlight, Image, StatusBar, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import loginApi from '../services/loginApi';
@@ -52,8 +52,8 @@ export default class SignIn extends Component {
                     lastLogin: date,
                 });
 
-                console.log('aqui')
-                console.log(response.data)
+                console.log('Logou')
+                // console.log(response.data)
 
 
                 async function storeData() {
@@ -100,7 +100,7 @@ export default class SignIn extends Component {
 
     render() {
         return (
-            <View style={loginStyles.container}>
+            <KeyboardAvoidingView style={loginStyles.container}>
                 <StatusBar hidden />
                 <Image style={loginStyles.logo} source={require('../assets/images/airbnb_logo.png')} resizeMode="contain" />
                 <Text style={loginStyles.smokeText}>
@@ -129,6 +129,7 @@ export default class SignIn extends Component {
                     autoCorrect={false}
                     secureTextEntry
                 />
+
                 {this.state.error.length !== 0 && <Text style={loginStyles.errorMessage}>{this.state.error}</Text>}
                 <TouchableHighlight style={loginStyles.button} onPress={this.handleSignInPress}>
                     <Text style={loginStyles.buttonText}>Entrar</Text>
@@ -136,7 +137,7 @@ export default class SignIn extends Component {
                 <TouchableHighlight style={loginStyles.signUpLink} onPress={this.handleCreateAccountPress}>
                     <Text style={loginStyles.signUpLinkText}>Criar conta grátis</Text>
                 </TouchableHighlight>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

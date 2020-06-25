@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, Image, StatusBar, TextInput, View, Text } from 'react-native';
+import { TouchableHighlight, Image, StatusBar, TextInput, View, Text, KeyboardAvoidingView } from 'react-native';
 import loginApi from '../services/loginApi';
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -94,7 +94,7 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <View style={loginStyles.container}>
+      <KeyboardAvoidingView style={loginStyles.container}>
         <StatusBar hidden />
         <Image style={loginStyles.logo} source={require('../assets/images/airbnb_logo.png')} resizeMode="contain" />
         <Text style={loginStyles.smokeText}>
@@ -145,7 +145,7 @@ export default class SignUp extends Component {
         <TouchableHighlight style={loginStyles.signInLink} onPress={this.handleBackToLoginPress}>
           <Text style={loginStyles.signInLinkText}>Voltar ao login</Text>
         </TouchableHighlight>
-      </View >
+      </KeyboardAvoidingView >
 
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, Image } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, NavigationActions } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import TabBarIconAdd from '../components/TabBarIconAdd';
 import HomeScreen from '../screens/HomeScreen';
@@ -97,7 +98,7 @@ StartChating.navigationOptions = {
     if (navigation.isFocused()) {
       // console.log('aqui no isFocused')
     }
-    console.log('botao principal')
+    // console.log('botao principal')
     // tab was not previously focused
     defaultHandler();
   },
@@ -149,6 +150,7 @@ const tabNavigator = createBottomTabNavigator(
       activeTintColor: Colors.tabIconSelected,
       inactiveTintColor: Colors.tabIconDefault,
       showLabel: false,
+      safeAreaInset: { bottom: 'never', top: 'never' },
       style: {
         backgroundColor: 'black',
         borderTopColor: '#E50914',

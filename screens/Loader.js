@@ -5,9 +5,9 @@ import {
 } from "react-native";
 
 export default function LoadingScreen() {
-    return (
+    return ( 
         <View style={styles.spinnerStyle}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#E50914" />
         </View >
     );
 }
@@ -15,7 +15,6 @@ export default function LoadingScreen() {
 const styles = {
     spinnerStyle: {
         flex: 1,
-        marginTop:240,
         justifyContent: 'center',
         alignItems:'center'
     }

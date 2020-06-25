@@ -15,25 +15,31 @@ import { Ionicons } from '@expo/vector-icons';
 export default function HomeScreen(props) {
   //  console.log('Aqui homescreen')
 
-  let location, user, geocode
+  let location, user, geocode, locationText
 
   props.screenProps.map((item) => {
     location = item.location
     user = item.user
     geocode = item.geocode
   })
+
   // console.log(user.name)
   // console.log(location)
-  let city;
-  let region;
-  let country;
+  let neighborhood, city, region, country;
   if (geocode !== null) {
-    geocode.map((item) => {
-      city = item.city
-      region = item.region
-      country = item.country
-    })
+    neighborhood = geocode.neighborhood
+    city = geocode.city
+    region = geocode.region
+    country = geocode.country
   }
+  if (geocode == null ||neighborhood == undefined || city == undefined || region == undefined || country == undefined) {
+    locationText = "Carregando localização"
+  } else {
+    locationText = neighborhood + ", " + city + ", " + region + ", " + country
+  }
+
+  // console.log('---------------')
+  // console.log(neighborhood)
   // console.log(city)
   // console.log(region)
   // console.log('---------------')
@@ -70,7 +76,7 @@ export default function HomeScreen(props) {
                     size={26}
                     style={{ marginBottom: -3 }}
                     color='#4db6ac'
-                  /> Location: {city + ", " + region + ", " + country}
+                  /> Location: {locationText}
                 </Text>
               </View>
 

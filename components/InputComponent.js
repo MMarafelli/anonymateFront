@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
-  TouchableHighlight, 
+  TouchableHighlight,
   Dimensions,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+
+const icon = require('../assets/custom-icons/iconeAnonymateActive.png')
 
 class InputComponent extends React.Component {
 
@@ -24,17 +26,20 @@ class InputComponent extends React.Component {
           onChangeText={changeTextHandler}
           onSubmitEditing={sendMessage}
           value={value}
-          placeholder="Type a message"
+          placeholder="Digite uma mensagem"
           returnKeyType="done"
           returnKeyLabel="done"
           underlineColorAndroid="transparent"
         />
         <TouchableHighlight
           style={styles.inputButton}
-          underlayColor='#fff'
+          underlayColor='#ffe3e3'
           onPress={sendMessage}
         >
-          <Text>Send</Text>
+          <Image
+            source={icon}
+            style={styles.img}
+          />
         </TouchableHighlight>
       </View>
     )
@@ -59,8 +64,9 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     marginLeft: 10,
+    marginBottom: 10,
     borderColor: "transparent",
-    width: screenWidth - 70,
+    width: screenWidth - 80,
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 1
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
   inputButton: {
     display: 'flex',
     height: 50,
+    width: 50,
     justifyContent: 'center',
     borderRadius: 10,
     alignSelf: 'center',
@@ -75,8 +82,14 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: '#fff',
+    marginBottom: 10,
+    backgroundColor: '#9e9e9e',
     elevation: 1
+  },
+  img:{
+    width: 70,
+    height: 70,
+    marginLeft: -15,
   }
 });
 
