@@ -50,14 +50,12 @@ export default class ChatScreen extends React.Component {
 
     socket.on('message', this.onReceivedMessages)
     socket.on('receiveMessage', this.onReceivedMessage)
-    USER = AsyncStorage.getItem('userId');
+    // USER = AsyncStorage.getItem('userId');
   }
 
   componentWillMount() {
     // console.log('componentWillMount')
     //if (Platform.OS === 'android') {
-    //  this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    //  this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     //}
   }
 
@@ -65,8 +63,6 @@ export default class ChatScreen extends React.Component {
     // console.log('componentWillUnmount')
     this._isMounted = false;
     // if (Platform.OS === 'android') {
-    //   this.keyboardDidShowListener.remove();
-    //   this.keyboardDidHideListener.remove();
     // }
     BackButtonHandler.unmount();
   }
@@ -74,15 +70,6 @@ export default class ChatScreen extends React.Component {
   componentDidMount() {
     // console.log('componentDidMount')
     this._isMounted = true;
-    //Keyboard.addListener(
-    //  isAndroid ? "keyboardDidShow" : "keyboardWillShow",
-    //  e => this.setState({ viewPadding: e.endCoordinates.height - 40 })
-    //);
-    //
-    //Keyboard.addListener(
-    //  isAndroid ? "keyboardDidHide" : "keyboardWillHide",
-    //  () => this.setState({ viewPadding: viewPadding })
-    //);
 
     BackButtonHandler.mount(true, this.props.navigation);
     socket.emit('openChat', this.state.friend.contactId, this.state.conversationId)
@@ -135,7 +122,10 @@ export default class ChatScreen extends React.Component {
         }
       );
 
-      socket.emit('sendMessage', this.state.friend.contactId, this.state.text, this.state.conversationId);
+      const response = socket.emit('sendMessage', this.state.friend.contactId, this.state.text, this.state.conversationId);
+      console.log('response do envia mensagem')
+      console.log(response)
+
     }
   };
 

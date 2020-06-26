@@ -100,7 +100,7 @@ export default {
     "nativeName": "ဗမာစာ"
   },
   "ca": {
-    "name": "Catalan; Valencian",
+    "name": "Catalan",
     "nativeName": "Català"
   },
   "ch": {
@@ -112,7 +112,7 @@ export default {
     "nativeName": "нохчийн мотт"
   },
   "ny": {
-    "name": "Chichewa; Chewa; Nyanja",
+    "name": "Chichewa",
     "nativeName": "chiCheŵa, chinyanja"
   },
   "zh": {
@@ -148,7 +148,7 @@ export default {
     "nativeName": "dansk"
   },
   "dv": {
-    "name": "Divehi; Dhivehi; Maldivian;",
+    "name": "Divehi;",
     "nativeName": "ދިވެހި"
   },
   "nl": {
@@ -188,7 +188,7 @@ export default {
     "nativeName": "français, langue française"
   },
   "ff": {
-    "name": "Fula; Fulah; Pulaar; Pular",
+    "name": "Fula",
     "nativeName": "Fulfulde, Pulaar, Pular"
   },
   "gl": {
@@ -204,7 +204,7 @@ export default {
     "nativeName": "Deutsch"
   },
   "el": {
-    "name": "Greek, Modern",
+    "name": "Greek",
     "nativeName": "Ελληνικά"
   },
   "gn": {
@@ -216,7 +216,7 @@ export default {
     "nativeName": "ગુજરાતી"
   },
   "ht": {
-    "name": "Haitian; Haitian Creole",
+    "name": "Haitian",
     "nativeName": "Kreyòl ayisyen"
   },
   "ha": {
@@ -257,7 +257,7 @@ export default {
   },
   "ie": {
     "name": "Interlingue",
-    "nativeName": "Originally called Occidental; then Interlingue after WWII"
+    "nativeName": "Originally called Occidental"
   },
   "ga": {
     "name": "Irish",
@@ -296,7 +296,7 @@ export default {
     "nativeName": "basa Jawa"
   },
   "kl": {
-    "name": "Kalaallisut, Greenlandic",
+    "name": "Kalaallisut",
     "nativeName": "kalaallisut, kalaallit oqaasii"
   },
   "kn": {
@@ -320,7 +320,7 @@ export default {
     "nativeName": "ភាសាខ្មែរ"
   },
   "ki": {
-    "name": "Kikuyu, Gikuyu",
+    "name": "Kikuyu",
     "nativeName": "Gĩkũyũ"
   },
   "rw": {
@@ -328,7 +328,7 @@ export default {
     "nativeName": "Ikinyarwanda"
   },
   "ky": {
-    "name": "Kirghiz, Kyrgyz",
+    "name": "Kirghiz",
     "nativeName": "кыргыз тили"
   },
   "kv": {
@@ -348,7 +348,7 @@ export default {
     "nativeName": "Kurdî, كوردی‎"
   },
   "kj": {
-    "name": "Kwanyama, Kuanyama",
+    "name": "Kwanyama",
     "nativeName": "Kuanyama"
   },
   "la": {
@@ -356,7 +356,7 @@ export default {
     "nativeName": "latine, lingua latina"
   },
   "lb": {
-    "name": "Luxembourgish, Letzeburgesch",
+    "name": "Luxembourgish",
     "nativeName": "Lëtzebuergesch"
   },
   "lg": {
@@ -364,7 +364,7 @@ export default {
     "nativeName": "Luganda"
   },
   "li": {
-    "name": "Limburgish, Limburgan, Limburger",
+    "name": "Limburgish",
     "nativeName": "Limburgs"
   },
   "ln": {
@@ -432,7 +432,7 @@ export default {
     "nativeName": "Ekakairũ Naoero"
   },
   "nv": {
-    "name": "Navajo, Navaho",
+    "name": "Navajo",
     "nativeName": "Diné bizaad, Dinékʼehǰí"
   },
   "nb": {
@@ -472,11 +472,11 @@ export default {
     "nativeName": "Occitan"
   },
   "oj": {
-    "name": "Ojibwe, Ojibwa",
+    "name": "Ojibwe",
     "nativeName": "ᐊᓂᔑᓈᐯᒧᐎᓐ"
   },
   "cu": {
-    "name": "Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic",
+    "name": "Old Church Slavonic",
     "nativeName": "ѩзыкъ словѣньскъ"
   },
   "om": {
@@ -488,11 +488,11 @@ export default {
     "nativeName": "ଓଡ଼ିଆ"
   },
   "os": {
-    "name": "Ossetian, Ossetic",
+    "name": "Ossetian",
     "nativeName": "ирон æвзаг"
   },
   "pa": {
-    "name": "Panjabi, Punjabi",
+    "name": "Panjabi",
     "nativeName": "ਪੰਜਾਬੀ, پنجابی‎"
   },
   "pi": {
@@ -508,7 +508,7 @@ export default {
     "nativeName": "polski"
   },
   "ps": {
-    "name": "Pashto, Pushto",
+    "name": "Pashto",
     "nativeName": "پښتو"
   },
   "pt": {
@@ -528,7 +528,7 @@ export default {
     "nativeName": "kiRundi"
   },
   "ro": {
-    "name": "Romanian, Moldavian, Moldovan",
+    "name": "Romanian",
     "nativeName": "română"
   },
   "ru": {
@@ -564,7 +564,7 @@ export default {
     "nativeName": "српски језик"
   },
   "gd": {
-    "name": "Scottish Gaelic; Gaelic",
+    "name": "Gaelic",
     "nativeName": "Gàidhlig"
   },
   "sn": {
@@ -572,7 +572,7 @@ export default {
     "nativeName": "chiShona"
   },
   "si": {
-    "name": "Sinhala, Sinhalese",
+    "name": "Sinhala",
     "nativeName": "සිංහල"
   },
   "sk": {
@@ -592,7 +592,7 @@ export default {
     "nativeName": "Sesotho"
   },
   "es": {
-    "name": "Spanish; Castilian",
+    "name": "Spanish",
     "nativeName": "español, castellano"
   },
   "su": {
@@ -632,7 +632,7 @@ export default {
     "nativeName": "ትግርኛ"
   },
   "bo": {
-    "name": "Tibetan Standard, Tibetan, Central",
+    "name": "Tibetan Standard",
     "nativeName": "བོད་ཡིག"
   },
   "tk": {
@@ -672,7 +672,7 @@ export default {
     "nativeName": "Reo Tahiti"
   },
   "ug": {
-    "name": "Uighur, Uyghur",
+    "name": "Uyghur",
     "nativeName": "Uyƣurqə, ئۇيغۇرچە‎"
   },
   "uk": {
@@ -728,7 +728,7 @@ export default {
     "nativeName": "Yorùbá"
   },
   "za": {
-    "name": "Zhuang, Chuang",
+    "name": "Zhuang",
     "nativeName": "Saɯ cueŋƅ, Saw cuengh"
   }
 };

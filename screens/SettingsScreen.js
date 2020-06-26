@@ -41,24 +41,43 @@ export default function SettingsScreen(props) {
       userId = item.user.userId
     })
     try {
+
+      // console.log('aqui')
+      // console.log(response.data)
+
       const response = await loginApi.post('/interestsUpdate', {
         userId: userId,
         interests: interestsState.interestsList,
         languageSponkenList: interestsState.languageSponkenList,
       });
 
-      // console.log('aqui')
-      // console.log(response.data)
-      setErro('')
+      if (response.status == 200) {
+        setInterestsList({
+          ...interestsState,
+          loadingInterests: false,
+          erroShow: false
+        })
+        setErro('')
+      }
 
     } catch (_err) {
       // console.log(_err)
       if (_err.response.status == 400) {
         // console.log(_err.response.data.error);
-        setErro('Houve um problema com a atualização de interesses! ' + _err.response.data.error)
+        setInterestsList({
+          ...interestsState,
+          loadingInterests: false,
+          erroShow: true,
+        })
+        setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       } else {
         // console.log('Houve um problema com a atualização de interesses!');
-        setErro('Houve um problema com a atualização de interesses! ' + _err.response.data.error)
+        setInterestsList({
+          ...interestsState,
+          loadingInterests: false,
+          erroShow: true,
+        })
+        setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       }
     }
   }
@@ -99,6 +118,11 @@ export default function SettingsScreen(props) {
         setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       } else {
         console.log('Houve um problema com a atualização de interesses!');
+        setInterestsList({
+          ...interestsState,
+          loadingInterests: false,
+          erroShow: true,
+        })
         setErro('Houve um problema com a atualização de interesses! Status:' + _err.response.status)
       }
     }
