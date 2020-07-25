@@ -15,8 +15,8 @@ import { Ionicons } from '@expo/vector-icons'
 import socket from "../services/SocketConfig";
 
 import LoadingScreen from '../screens/Loader'
-import FlatListComponent from '../components/FlatListComponent';
-import InputComponent from '../components/InputComponent';
+import FlatListComponentChat from '../components/FlatListComponentChat';
+import InputComponentChat from '../components/InputComponentChat';
 
 import BackButtonHandler from '../components/BackButtonHandler';
 
@@ -69,6 +69,7 @@ export default class ChatScreen extends React.Component {
 
   componentDidMount() {
     // console.log('componentDidMount')
+    console.log(this.props.navigation.state.params)
     this._isMounted = true;
 
     BackButtonHandler.mount(true, this.props.navigation);
@@ -123,8 +124,8 @@ export default class ChatScreen extends React.Component {
       );
 
       const response = socket.emit('sendMessage', this.state.friend.contactId, this.state.text, this.state.conversationId);
-      console.log('response do envia mensagem')
-      console.log(response)
+      // console.log('response do envia mensagem')
+      // console.log(response)
 
     }
   };
@@ -183,7 +184,7 @@ export default class ChatScreen extends React.Component {
   }
 
   render() {
-    // console.log('aqui this.state.userId ' + this.state.userId)
+    console.log('aqui this.state.userId ' + this.state.userId)
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
@@ -213,13 +214,13 @@ export default class ChatScreen extends React.Component {
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, index }) =>
-                <FlatListComponent
+                <FlatListComponentChat
                   {...item} itemId={index} userId={this.state.userId} conversationLength={this.state.tasks.length}
                 />
               }
               keyExtractor={(item, index) => index.toString()}
             />
-            <InputComponent
+            <InputComponentChat
               changeTextHandler={this.changeTextHandler}
               onSubmitEditing={() => this.submithandler()}
               value={this.state.text}

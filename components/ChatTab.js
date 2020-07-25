@@ -89,6 +89,11 @@ function getLastMessage(props) {
     props.messages.map((item) => {
       message = '  ' + item.message
     })
+    let messageLength = message.split('').length
+    // console.log(messageLength)
+    if(messageLength > 20 ){
+      message = message.substring(0,19) + '...'
+    }
     return message
   } else {
     return ' Conversa vazia'

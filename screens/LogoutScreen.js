@@ -22,17 +22,17 @@ export default function LogoutScreen(props) {
         }
 
 
-        //const logoutAction = StackActions.reset({
-        //    index: 0,
-        //    key: null,
-        //    actions: [
-        //        NavigationActions.navigate({ routeName: 'SignIn', })
-        //    ],
-        //});
+        const logoutAction = StackActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({ routeName: 'SignIn', })
+            ],
+        })
 
-        //global.stackNavigator.dispatch(
-        //    logoutAction
-        //);
+        global.stackNavigator.dispatch(
+            logoutAction
+        );
     };
 
     return (

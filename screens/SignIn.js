@@ -57,19 +57,19 @@ export default class SignIn extends Component {
                     lastLogin: date,
                 });
 
-                console.log('Logou')
+                // console.log('Logou')
                 // console.log(response.data)
                 this.setState({ ...this.state, loginSuccessful: true })
 
                 async function storeData() {
-                    console.log('grava')
+                    // console.log('grava')
                     try {
                         await AsyncStorage.setItem('userId', response.data.userId);
                         await AsyncStorage.setItem('token', response.data.token);
-                        console.log('gravou')
+                        // console.log('gravou')
                     } catch (error) {
-                        console.log('erro grava')
-                        console.log(error)
+                    // console.log('erro grava')
+                    // console.log(error)
                     }
                 };
 
@@ -88,8 +88,8 @@ export default class SignIn extends Component {
                     // await _writeTolken();
                     this.props.navigation.dispatch(resetAction);
                 } catch (erro) {
-                    console.log('n foi pra tela main')
-                    console.log(erro)
+                    //console.log('n foi pra tela main')
+                    //console.log(erro)
                     this.setState({
                         ...this.state,
                         loginAttempt: false,

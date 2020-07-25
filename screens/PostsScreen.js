@@ -23,7 +23,7 @@ export default function PostsScreen(props) {
 
   socket.on('refreshLastMessage', (data) => {
     // refresh last message on contacts
-    console.log('refreshLastMessage')
+    // console.log('refreshLastMessage')
     let lastMessageConversationId, lastMessage, lastMessageAddAt
     data.map((item) => {
       lastMessageConversationId = item._id
@@ -177,21 +177,17 @@ export default function PostsScreen(props) {
   async function getContactsList() {
     props.screenProps.map((item) => {
       // console.log('getContactsList')
-      //console.log(item.user.userId)
-      socket.emit('online', (item.user.userId))
-      socket.on('online', async (data) => {
-        //console.log('socket online')
-        //console.log(data)
+      // console.log(item.user.userId)
+      socket.emit('getLastMessages', (item.user.userId))
+      socket.on('getLastMessagesListener', async (data) => {
+        // console.log('socket getLastMessagesListener')
+        // console.log(data.user._id)
         // console.log('aquiiiiiiiiiiiiiiiiii')
         const resp = await (data)
 
         if (!isSubscribed && resp != " ") {
           newMessagesSetter(data)
         }
-        socket.emit("userOnline", function (response) {
-          // console.log('userOnline')
-          // console.log(response)
-        });
       });
     })
   };

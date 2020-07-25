@@ -48,10 +48,7 @@ class FlatListComponent extends React.Component {
           { backgroundColor: this.props.userId === this.props.user.senderId ? '#ffe3e3' : "#fff" }
         ]}
         >
-          <Image
-            style={styles.imageStyles}
-            source={{ uri: this.props.user.avatar }}
-          />
+           {/* <Image style={styles.imageStyles}source={{ uri: this.props.user.avatar }}/> */}
           <Text style={styles.listItem}>
             {this.props.text}
           </Text>

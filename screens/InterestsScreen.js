@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, TextInput, Switch, StyleSheet, FlatList, KeyboardAvoidingView } from "react-native";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ScrollView, View, Text, TextInput, TouchableHighlight, StyleSheet, FlatList, KeyboardAvoidingView } from "react-native";
 import loginApi from '../services/loginApi';
 import { YellowBox } from 'react-native'
 
@@ -10,7 +9,7 @@ import InterestsList from "../components/InterestsList"
 
 import Warning from "../components/Warning"
 
-export default function SettingsScreen(props) {
+export default function InterestsScreen(props) {
   YellowBox.ignoreWarnings([
     'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.', // TODO: Remove when fixed
   ])
@@ -22,6 +21,7 @@ export default function SettingsScreen(props) {
   const [valueLanguage, setTextLanguage] = useState('');
 
   const [interestsState, setInterestsList] = useState({
+    initialLetterArray: [],
     interestsArray: [],
     interestsList: [],
     languageArray: [],
@@ -196,8 +196,16 @@ export default function SettingsScreen(props) {
           arrayLanguagesFiltered = arrayLanguagesFiltered.reverse()
           // console.log(arrayLanguagesFiltered)
           arrayLanguagesFiltered.map(obj => interestsState.languageSponkenList.includes(obj.name) ? obj.isPresent = true : obj.isPresent = false)
+          let arrayInitialLetterAux = []
+          arrayLanguagesFiltered.map((obj) => {
+            if (!arrayInitialLetterAux.includes(obj.name[0])) {
+              // console.log(obj.name[0])
+              arrayInitialLetterAux.push(obj.name[0])
+            }
+          })
           setInterestsList({
             ...interestsState,
+            initialLetterArray: arrayInitialLetterAux,
             languageArray: arrayLanguagesFiltered,
           })
         }
@@ -357,6 +365,13 @@ export default function SettingsScreen(props) {
         </TextInput>
 
         <View>
+          <FlatList>
+            <TouchableHighlight></TouchableHighlight>
+          </FlatList>
+        </View>
+
+
+        <View>
           <FlatList
             contentContainerStyle={{ flexGrow: 1, width: "100%" }}
             initialNumToRender={10}
@@ -371,7 +386,7 @@ export default function SettingsScreen(props) {
         </View>
 
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView >
   );
 }
 
@@ -399,7 +414,7 @@ const styles = StyleSheet.create({
   }
 });
 
-SettingsScreen.navigationOptions = {
+InterestsScreen.navigationOptions = {
   title: 'Interesses',
   headerStyle: {
     backgroundColor: 'black',

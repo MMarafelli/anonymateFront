@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Image,
   ScrollView,
@@ -12,16 +12,27 @@ import generalStyle from '../style/generalStyle'
 import homeScreenStyle from '../style/homeScreenStyle'
 import { Ionicons } from '@expo/vector-icons';
 
+import socket from "../services/SocketConfig";
+
 export default function HomeScreen(props) {
   //  console.log('Aqui homescreen')
 
-  let location, user, geocode, locationText
+  let location, user, userId, geocode, locationText
 
   props.screenProps.map((item) => {
     location = item.location
     user = item.user
     geocode = item.geocode
   })
+
+  socket.emit('online', (user.userId))
+
+  socket.on('online', (data) => {
+    // console.log('online')
+    // console.log(data)
+  })
+
+
 
   // console.log(user.name)
   // console.log(location)

@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import TabBarIconAdd from '../components/TabBarIconAdd';
 import HomeScreen from '../screens/HomeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import InterestsScreen from '../screens/InterestsScreen';
 import PostsScreen from '../screens/PostsScreen';
 import StartChatingScreen from '../screens/StartChatingScreen';
 import LogoutScreen from '../screens/LogoutScreen';
@@ -45,21 +45,21 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const InterestsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Interests: InterestsScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+InterestsStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+InterestsStack.path = '';
 
 const PostsStack = createStackNavigator(
   {
@@ -140,7 +140,7 @@ LogoutStack.path = '';
 const tabNavigator = createBottomTabNavigator(
   {
     HomeStack,
-    SettingsStack,
+    InterestsStack,
     StartChating,
     PostsStack,
     LogoutStack,

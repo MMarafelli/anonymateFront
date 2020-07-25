@@ -16,9 +16,10 @@ const icon = require('../assets/custom-icons/iconeAnonymateActive.png')
 
 class InputComponent extends React.Component {
 
+
+
   render() {
     let { changeTextHandler, onSubmitEditing, value, sendMessage } = this.props;
-
     return (
       <View style={styles.container, { flexDirection: 'row' }}>
         <TextInput
@@ -26,6 +27,7 @@ class InputComponent extends React.Component {
           onChangeText={changeTextHandler}
           onSubmitEditing={sendMessage}
           value={value}
+          multiline
           placeholder="Digite uma mensagem"
           returnKeyType="done"
           returnKeyLabel="done"
@@ -58,7 +60,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textInput: {
-    height: 50,
+    minHeight: 20,
+    maxHeight: 120,
     paddingRight: 10,
     paddingLeft: 10,
     paddingTop: 15,
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9e9e9e',
     elevation: 1
   },
-  img:{
+  img: {
     width: 70,
     height: 70,
     marginLeft: -15,

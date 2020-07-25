@@ -7,10 +7,15 @@ export default function LanguagesList(props) {
   // const toggleSwitchLanguage = () => setIsEnabledLanguage(previousState => !previousState);
 
   // console.log(" entrou LanguagesArray")
-  // console.log(props.languageList.languageArray)
+  // console.log(props)
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}
+    // onLayout={(event) => {
+    //   const { x, y, width, height } = event.nativeEvent.layout;
+    // console.log(height)
+    // }}
+    >
       <View style={[styles.row]}>
         <View >
           <Text style={[styles.textName], props.isPresent ? { color: 'black' } : { color: 'rgba(96,100,109, 1)' }}>
